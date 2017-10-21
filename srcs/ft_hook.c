@@ -12,10 +12,10 @@
 #include <stdio.h>
 
 
-/*void    julia_fun(t_infos *infos)
+void    julia_fun(t_infos *infos)
 {
     run_julia(infos, infos->x_deb, infos->y_deb);
-}*/
+}
 
 void    draw_fractal(t_infos *infos)
 {
@@ -25,8 +25,7 @@ void    draw_fractal(t_infos *infos)
     fractal_tab[0].name = "Mandelbrot";
     fractal_tab[0].fractal_fun = mandel_fun;
     fractal_tab[1].name = "Julia";
-    fractal_tab[1].fractal_fun = mandel_fun;
-   // fractal_tab[1]. fractal_fun = julia_fun;
+    fractal_tab[1].fractal_fun = julia_fun;
     index = 0;
     while ((index < NB_FRACTALS) && ft_strcmp(infos->fractal_name, fractal_tab[index].name) != 0)
         index++;
@@ -61,23 +60,24 @@ int     mouse_hook(int button, int x, int y, t_infos *infos)
     double  x1;
     double  y1;
 
-    //x1 = infos->min_re + x * (infos->max_re - infos->min_re) / (WIDTH);
-    //y1 = infos->max_im - y * (infos->max_im - infos->min_im) / (HEIGHT);
-
     x1 = map(x, 0, WIDTH, infos->min_re, infos->max_re);
     y1 = map(y, 0, HEIGHT, infos->min_im, infos->max_im);
-  /*  x1 = getReal(x, WIDTH, infos->min_re, infos->max_re);
-    y1 = getImagin(y, HEIGHT, infos->min_im, infos->max_im);*/
     printf("\n===================\n");
     printf("\nx = %d, y = %d", x, y);
     printf("\nx1 = %f, y1 = %f", x1, y1);
-    if (button == 2)
+    if (button == 4)
     {
-        infos->max_iter *= 1.5;
+        infos->h *= 1.01;
+        infos->min_re = x1 - infos->h;
+        infos->max_re = x1 + infos->h;
+        infos->min_im = y1 - infos->h;
+        infos->max_im = y1 + infos->h;
+        printf("\nMax_iter = %d ", infos->max_iter);
+        infos->max_iter--;
     }
-    if (button == 1)
+    if (button == 5)
     {
-        infos->h *= 0.9;
+        infos->h /= 1.01;
 
         /*
          * m600x
@@ -88,9 +88,8 @@ int     mouse_hook(int button, int x, int y, t_infos *infos)
         infos->max_re = x1 + infos->h;
         infos->min_im = y1 - infos->h;
         infos->max_im = y1 + infos->h;
-        //infos->zoom += 1.5;
-        printf("\n+++++++");
-        infos->max_iter *= 1.2;
+        printf("\nMax_iter = %d ", infos->max_iter);
+        infos->max_iter += 1.5;
         printf("\n[%f;%f]x[%f;%f]", infos->min_re, infos->max_re, infos->min_im, infos->max_im);
     }
     expose_hook(infos);

@@ -12,7 +12,6 @@
 
 void	ft_init(t_infos *infos)
 {
-    /* MaxIm = MinIm+(MaxRe-MinRe)*ImageHeight/ImageWidth;*/
     infos->max_iter = 100;
     infos->x = 0.0;
     infos->y = 0.0;
@@ -23,7 +22,7 @@ void	ft_init(t_infos *infos)
     infos->max_im = 2;
     infos->min_im = -2;
     infos->h = 0.1;
-    infos->zoom = 100;
+    infos->zoom = 1;
     infos->x_zoom = WIDTH / (infos->max_re - infos->min_re);
     infos->y_zoom = HEIGHT / (infos->max_im - infos->min_im);
     infos->x_offset = 0;

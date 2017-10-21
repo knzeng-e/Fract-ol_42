@@ -14,8 +14,8 @@
 
 # define FRACTOL_H
 
-# define WIDTH 1500
-# define HEIGHT 1200
+# define WIDTH 1000
+# define HEIGHT 800
 # define MAX_ITER 255
 # define MAX_Re 2.0
 # define MIN_Re -2.0
@@ -91,6 +91,7 @@ void	mlx_draw(t_infos *infos);
 double	to_square(double nb);
 double	getReal(int x, int width, double minR, double maxR);
 double	getImagin(int y, int height, double minI, double maxI);
+double   map(int x, double in_min, double in_max, double out_min, double out_max);
 
 #endif
 

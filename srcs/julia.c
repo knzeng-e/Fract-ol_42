@@ -10,43 +10,51 @@
 
 #include "fractol.h"
 
-double	getReal(int x, int width, double minR, double maxR)
+int     run_julia(t_infos *infos, int mouse_x, int mouse_y)
 {
-	double	range = maxR - minR;
+    int     row;
+    int     col;
+    int     iteration;
+    double  c_re;
+    double  c_im;
+    double  x;
+    double  y;
+    double  x_new;
+    double image_x = WIDTH;
+    double image_y = HEIGHT;
 
-   // c_re = (x - width/2.0)*4.0/width;
-   // pr = 1.5 * (x - w / 2) / (0.5 * zoom * w) + moveX;
-	return ((x * (range / width)) + minR);
-}
-
-double	getImagin(int y, int height, double minI, double maxI)
-{
-	double range = minI - maxI;
-
-	//return (y * (range / height) + minI);
-	return ((y * (range / height)) + maxI);
-}
-
-int	check_if_julia(t_infos *infos)
-{
-    int		cpt;
-    double	x_temp;
-    double	lim;
-
-    cpt = 0;
-    lim = 0.0;
-    while ((cpt < infos->max_iter) && (lim < 4.0))
+    infos->x_zoom = image_x / (infos->max_re - infos->min_re);
+    infos->y_zoom = image_y / (infos->max_im - infos->min_im);
+    c_re = map(mouse_x, 0, WIDTH, infos->min_re, infos->max_re);
+    c_im = map(mouse_y, 0, HEIGHT, infos->min_im, infos->max_im);
+    row = 0;
+    while (row < image_y)
     {
-        x_temp = to_square(infos->x) - to_square(infos->y) + infos->c.real;
-        infos->y = (2.0 * infos->x * infos->y) + infos->c.imaginary;
-        infos->x = x_temp;
-        lim = to_square(infos->x) + to_square(infos->y);
-        cpt++;
+        col = 0;
+        while (col < image_x)
+        {
+            x = (col + infos->x_offset) / infos->x_zoom + infos->min_re;
+            y = (row + infos->y_offset) / infos->y_zoom + infos->min_im;
+            iteration = 0;
+            while ((x * x + y * y) <= 4 && (iteration < infos->max_iter))
+            {
+                x_new = x * x - y * y + c_re;
+                y = 2 * x * y + c_im;
+                x = x_new;
+                iteration++;
+            }
+            if (iteration < infos->max_iter)
+                infos->img_data[row * WIDTH + col] = mlx_get_color_value(infos->mlx, 0x000004FF << (iteration ^ 255));
+            col++;
+        }
+        row++;
     }
-    return (cpt);
+    return (0);
 }
 
-int	run_julia(t_infos *infos, int x, int y)
+
+
+/*int	run_julia(t_infos *infos, int x, int y)
 {
     int i;
     int j;
@@ -73,4 +81,4 @@ int	run_julia(t_infos *infos, int x, int y)
         j++;
     }
     return (0);
-}
+}*/
