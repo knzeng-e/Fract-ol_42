@@ -12,16 +12,14 @@
 
 void	ft_init(t_infos *infos)
 {
-    infos->max_iter = 100;
+    infos->max_iter = 25;
     infos->x = 0.0;
     infos->y = 0.0;
-    infos->x_deb = 0;
-    infos->y_deb = 0;
     infos->max_re = 2;
     infos->min_re = -2;
     infos->max_im = 2;
     infos->min_im = -2;
-    infos->h = 0.1;
+    infos->h = 1.0;
     infos->zoom = 1;
     infos->x_zoom = WIDTH / (infos->max_re - infos->min_re);
     infos->y_zoom = HEIGHT / (infos->max_im - infos->min_im);

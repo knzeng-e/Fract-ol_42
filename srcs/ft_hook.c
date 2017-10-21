@@ -11,12 +11,6 @@
 #include "fractol.h"
 #include <stdio.h>
 
-
-void    julia_fun(t_infos *infos)
-{
-    run_julia(infos, infos->x_deb, infos->y_deb);
-}
-
 void    draw_fractal(t_infos *infos)
 {
     t_fractal   fractal_tab[2];
@@ -43,8 +37,8 @@ int		expose_hook(t_infos *infos)
 
 int		pointerMotion(int x, int y, t_infos *infos)
 {
-    infos->x_deb = x;
-    infos->y_deb = y;
+    infos->mouse_x = x;
+    infos->mouse_y = y;
     expose_hook(infos);
     return (0);
 }
@@ -62,35 +56,24 @@ int     mouse_hook(int button, int x, int y, t_infos *infos)
 
     x1 = map(x, 0, WIDTH, infos->min_re, infos->max_re);
     y1 = map(y, 0, HEIGHT, infos->min_im, infos->max_im);
-    printf("\n===================\n");
-    printf("\nx = %d, y = %d", x, y);
-    printf("\nx1 = %f, y1 = %f", x1, y1);
     if (button == 4)
     {
-        infos->h *= 1.01;
+        infos->h /= 0.1;
         infos->min_re = x1 - infos->h;
         infos->max_re = x1 + infos->h;
         infos->min_im = y1 - infos->h;
         infos->max_im = y1 + infos->h;
-        printf("\nMax_iter = %d ", infos->max_iter);
-        infos->max_iter--;
+        infos->max_iter /= 1.5;
     }
     if (button == 5)
     {
-        infos->h /= 1.01;
+        infos->h *= 0.1;
 
-        /*
-         * m600x
-         *
-         *
-         * */
         infos->min_re = x1 - infos->h;
         infos->max_re = x1 + infos->h;
         infos->min_im = y1 - infos->h;
         infos->max_im = y1 + infos->h;
-        printf("\nMax_iter = %d ", infos->max_iter);
-        infos->max_iter += 1.5;
-        printf("\n[%f;%f]x[%f;%f]", infos->min_re, infos->max_re, infos->min_im, infos->max_im);
+        infos->max_iter *= 1.5;
     }
     expose_hook(infos);
     return (0);
@@ -139,7 +122,6 @@ void	mlx_draw(t_infos *infos)
     mlx_key_hook(infos->win, key_hook, infos);
     mlx_mouse_hook(infos->win, mouse_hook, infos);
     mlx_expose_hook(infos->win, expose_hook, infos);
-    //mlx_loop_hook(infos->mlx, loop_hook, infos);
     mlx_hook(infos->win, MOTION_NOTIFY, PTR_MOTION_MASK, pointerMotion, infos);
     mlx_loop(infos->mlx);
 }

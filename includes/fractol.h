@@ -56,8 +56,8 @@ typedef struct	s_infos
 	int			endian;
     int         x_offset;
     int         y_offset;
-	int			x_deb;
-	int			y_deb;
+	int			mouse_x;
+	int			mouse_y;
     double      x_zoom;
     double      y_zoom;
 	double		x;
@@ -80,17 +80,14 @@ typedef struct  s_fractal
 }               t_fractal;
 
 int		get_mandelbrot(t_infos *infos);
-int		run_julia(t_infos *infos, int x, int y);
 int		draw(t_infos *infos, int *x, int *y);
 void    draw_fractal(t_infos *infos);
 void	ft_init(t_infos *infos);
 void    mandel_fun(t_infos *infos);
+void    julia_fun(t_infos *infos);
 void	draw_mandelbrot(int x, int y, t_infos *infos);
 void	draw_mandel(t_infos *infos);
 void	mlx_draw(t_infos *infos);
-double	to_square(double nb);
-double	getReal(int x, int width, double minR, double maxR);
-double	getImagin(int y, int height, double minI, double maxI);
 double   map(int x, double in_min, double in_max, double out_min, double out_max);
 
 #endif
