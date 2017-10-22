@@ -32,6 +32,7 @@ int		expose_hook(t_infos *infos)
     mlx_clear_window(infos->mlx, infos->win);
     draw_fractal(infos);
     mlx_put_image_to_window(infos->mlx, infos->win, infos->ptr_img, 0, 0);
+    mlx_string_put(infos->mlx, infos->win, 4, 2, 0x00FFFF00, ft_itoa((infos->zoom_scale)));
     return (0);
 }
 
@@ -51,30 +52,16 @@ double   map(int x, double in_min, double in_max, double out_min, double out_max
 
 int     mouse_hook(int button, int x, int y, t_infos *infos)
 {
-    double  x1;
-    double  y1;
-
-    x1 = map(x, 0, WIDTH, infos->min_re, infos->max_re);
-    y1 = map(y, 0, HEIGHT, infos->min_im, infos->max_im);
-    if (button == 4)
-    {
-        infos->h /= 0.1;
-        infos->min_re = x1 - infos->h;
-        infos->max_re = x1 + infos->h;
-        infos->min_im = y1 - infos->h;
-        infos->max_im = y1 + infos->h;
-        infos->max_iter /= 1.5;
-    }
+    x += infos->x_offset;
+    y += infos->y_offset;
+    if (button == LEFT)
+        infos->x_offset -= 12;
+    if (button == RIGHT)
+        infos->x_offset += 12;
     if (button == 5)
-    {
-        infos->h *= 0.1;
-
-        infos->min_re = x1 - infos->h;
-        infos->max_re = x1 + infos->h;
-        infos->min_im = y1 - infos->h;
-        infos->max_im = y1 + infos->h;
-        infos->max_iter *= 1.5;
-    }
+        zoom_in(x, y, infos);
+    if (button == 4)
+        zoom_out(x, y, infos);
     expose_hook(infos);
     return (0);
 }
@@ -102,7 +89,7 @@ int     key_hook(int keycode, t_infos *infos)
         infos->max_iter += 1;
         expose_hook(infos);
     }
-    if (keycode == MOVE_LEFT) /*LEFT*/
+    if (keycode == MOVE_LEFT || keycode == LEFT) /*LEFT*/
     {
         infos->x_offset -= 12;
         expose_hook(infos);
@@ -112,11 +99,22 @@ int     key_hook(int keycode, t_infos *infos)
         infos->x_offset += 12;
         expose_hook(infos);
     }
+    if (keycode == MOVE_UP) /*RIGHT*/
+    {
+        infos->y_offset -= 12;
+        expose_hook(infos);
+    }
+    if (keycode == MOVE_DOWN) /*RIGHT*/
+    {
+        infos->y_offset += 12;
+        expose_hook(infos);
+    }
     return (keycode);
 }
 
 void	mlx_draw(t_infos *infos)
 {
+        printf("\n\t\t*\t[%f , %f] x [%f, %f]", infos->min_re, infos->max_re, infos->min_im, infos->max_im);
     infos->win = mlx_new_window(infos->mlx, WIDTH, HEIGHT, infos->fractal_name);
     mlx_put_image_to_window(infos->mlx, infos->win, infos->ptr_img, 0, 0);
     mlx_key_hook(infos->win, key_hook, infos);

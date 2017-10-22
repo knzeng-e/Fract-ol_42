@@ -14,8 +14,8 @@
 
 # define FRACTOL_H
 
-# define WIDTH 1000
-# define HEIGHT 800
+# define WIDTH 500
+# define HEIGHT 500
 # define MAX_ITER 255
 # define MAX_Re 2.0
 # define MIN_Re -2.0
@@ -27,7 +27,11 @@
 # define ZOOM_IN 69
 # define ZOOM_OUT 78
 # define MOVE_LEFT 123
+# define LEFT 7
+# define RIGHT 6
 # define MOVE_RIGHT 124
+# define MOVE_UP 126
+# define MOVE_DOWN 125
 # define MOTION_NOTIFY 6
 # define PTR_MOTION_MASK (1L<<6)
 # define INIT_OK 2
@@ -58,12 +62,13 @@ typedef struct	s_infos
     int         y_offset;
 	int			mouse_x;
 	int			mouse_y;
+    int         is_lock;
     double      x_zoom;
     double      y_zoom;
 	double		x;
     double      zoom;
 	double		y;
-    double      h;
+    double      zoom_scale;
 	double		max_re;
 	double		min_re;
 	double		max_im;
@@ -85,6 +90,8 @@ void    draw_fractal(t_infos *infos);
 void	ft_init(t_infos *infos);
 void    mandel_fun(t_infos *infos);
 void    julia_fun(t_infos *infos);
+void    zoom_in(int x, int y, t_infos *infos);
+void    zoom_out(int x, int y, t_infos *infos);
 void	draw_mandelbrot(int x, int y, t_infos *infos);
 void	draw_mandel(t_infos *infos);
 void	mlx_draw(t_infos *infos);
