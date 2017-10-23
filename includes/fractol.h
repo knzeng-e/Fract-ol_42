@@ -22,6 +22,7 @@
 # define MAX_Im 2.0
 # define MIN_Im -2.0
 # define NB_FRACTALS 3
+# define NB_FUNC 13
 # define ERREUR_FRACTALE 0
 # define CORRECT_FRACTALE 1
 # define ZOOM_IN 5
@@ -32,6 +33,11 @@
 # define MOVE_RIGHT 124
 # define MOVE_UP 126
 # define MOVE_DOWN 125
+# define BURNING_KEY 49
+# define JULIA_KEY 46
+# define MANDEL_KEY 11
+# define SPACE_KEY 49
+# define ESC 53
 # define MOTION_NOTIFY 6
 # define PTR_MOTION_MASK (1L<<6)
 # define INIT_OK 2
@@ -42,6 +48,8 @@
 # include <stdlib.h>
 # include <math.h>
 # include <mlx.h>
+
+/*DATA STRUCTURES*/
 
 typedef struct	s_complex
 {
@@ -58,6 +66,8 @@ typedef struct	s_infos
 	int			bpp;
 	int			size_line;
 	int			endian;
+    int         x;
+    int         y;
     int         x_offset;
     int         y_offset;
 	int			mouse_x;
@@ -65,9 +75,6 @@ typedef struct	s_infos
     int         is_lock;
     double      x_zoom;
     double      y_zoom;
-	double		x;
-    double      zoom;
-	double		y;
     double      zoom_scale;
 	double		max_re;
 	double		min_re;
@@ -84,15 +91,45 @@ typedef struct  s_fractal
     void        (*fractal_fun)(t_infos *);
 }               t_fractal;
 
+typedef struct  s_func
+{
+    void        (*fun)(t_infos *);
+    int         key;
+}               t_fun;
+
+/*! \enum functions
+ *
+ *  Detailed description
+ */
+/* FUNCTIONS */
+
 int		get_mandelbrot(t_infos *infos);
 int		draw(t_infos *infos, int *x, int *y);
+int		pointerMotion(int x, int y, t_infos *infos);
+int		expose_hook(t_infos *infos);
 void    draw_fractal(t_infos *infos);
 void	ft_init(t_infos *infos);
+
+void    move_left(t_infos *infos);
+void    move_right(t_infos *infos);
+void    move_up(t_infos *infos);
+void    move_down(t_infos *infos);
+void    mouse_left(t_infos *infos);
+void    mouse_right(t_infos *infos);
+void    quit(t_infos *infos);
+void    lock_julia(t_infos *infos);
+void    ft_zoom_in(t_infos *infos);
+void    ft_zoom_out(t_infos *infos);
+void    mandel_fun(t_infos *infos);
+void    julia_fun(t_infos *infos);
+void    burning_fun(t_infos *infos);
+
 void    mandel_fun(t_infos *infos);
 void    julia_fun(t_infos *infos);
 void    burning_fun(t_infos *infos);
 void    zoom_in(int x, int y, t_infos *infos);
 void    zoom_out(int x, int y, t_infos *infos);
+void    run_functions(t_infos *infos, int current_key);
 void	draw_mandelbrot(int x, int y, t_infos *infos);
 void	draw_mandel(t_infos *infos);
 void	mlx_draw(t_infos *infos);

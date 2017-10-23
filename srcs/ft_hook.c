@@ -11,22 +11,6 @@
 #include "fractol.h"
 #include <stdio.h>
 
-void    draw_fractal(t_infos *infos)
-{
-    t_fractal   fractal_tab[3];
-    int         index;
-
-    fractal_tab[0].name = "mandelbrot";
-    fractal_tab[0].fractal_fun = mandel_fun;
-    fractal_tab[1].name = "julia";
-    fractal_tab[1].fractal_fun = julia_fun;
-    fractal_tab[2].name = "burningship";
-    fractal_tab[2].fractal_fun = burning_fun;
-    index = 0;
-    while ((index < NB_FRACTALS) && ft_strcmp(infos->fractal_name, fractal_tab[index].name) != 0)
-        index++;
-    fractal_tab[index].fractal_fun(infos);
-}
 
 int		expose_hook(t_infos *infos)
 {
@@ -40,85 +24,20 @@ int		expose_hook(t_infos *infos)
     return (0);
 }
 
-int		pointerMotion(int x, int y, t_infos *infos)
-{
-    infos->mouse_x = x;
-    infos->mouse_y = y;
-    expose_hook(infos);
-    return (0);
-}
-
-double   map(int x, double in_min, double in_max, double out_min, double out_max)
-{
-    return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
-}
-
 int     mouse_hook(int button, int x, int y, t_infos *infos)
 {
     x += infos->x_offset;
     y += infos->y_offset;
-    if (button == LEFT)
-        infos->x_offset -= 12;
-    if (button == RIGHT)
-        infos->x_offset += 12;
-    if (button == ZOOM_IN)
-    {
-        if ((int)infos->zoom_scale % 10 == 0)
-            infos->max_iter += 10;
-        zoom_in(x, y, infos);
-    }
-    if (button == ZOOM_OUT)
-        zoom_out(x, y, infos);
+    infos->x = x;
+    infos->y = y;
+    run_functions(infos, button);
     expose_hook(infos);
     return (0);
 }
 
 int     key_hook(int keycode, t_infos *infos)
 {
-    printf("\nKeycode pressed ==> %d", keycode);
-    if (keycode == 49)
-        infos->is_lock = !infos->is_lock;
-    if (keycode == 53)
-    {
-        mlx_destroy_image(infos->mlx, infos->ptr_img);
-        free(infos);
-        exit (0);
-    }
-    if (keycode == ZOOM_OUT)
-    {
-        if (infos->zoom > 1)
-        {
-            infos->zoom -= 0.5;
-            infos->max_iter -= 1;
-        }
-        expose_hook(infos);
-    }
-    if (keycode == ZOOM_IN)
-    {
-        infos->zoom += 0.5;
-        infos->max_iter += 1;
-        expose_hook(infos);
-    }
-    if (keycode == MOVE_LEFT || keycode == LEFT) /*LEFT*/
-    {
-        infos->x_offset -= 12;
-        expose_hook(infos);
-    }
-    if (keycode == MOVE_RIGHT) /*RIGHT*/
-    {
-        infos->x_offset += 12;
-        expose_hook(infos);
-    }
-    if (keycode == MOVE_UP) /*RIGHT*/
-    {
-        infos->y_offset -= 12;
-        expose_hook(infos);
-    }
-    if (keycode == MOVE_DOWN) /*RIGHT*/
-    {
-        infos->y_offset += 12;
-        expose_hook(infos);
-    }
+    run_functions(infos, keycode);
     return (keycode);
 }
 
