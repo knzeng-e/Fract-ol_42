@@ -21,8 +21,11 @@ void    julia_fun(t_infos *infos)
 
     infos->x_zoom = WIDTH / (infos->max_re - infos->min_re);
     infos->y_zoom = HEIGHT / (infos->max_im - infos->min_im);
-    infos->c.real = map(infos->mouse_x, 0, WIDTH, infos->min_re, infos->max_re);
-    infos->c.imaginary = map(infos->mouse_y, 0, HEIGHT, infos->min_im, infos->max_im);
+    if (!infos->is_lock)
+    {
+        infos->c.real = map(infos->mouse_x, 0, WIDTH, infos->min_re, infos->max_re);
+        infos->c.imaginary = map(infos->mouse_y, 0, HEIGHT, infos->min_im, infos->max_im);
+    }
     row = 0;
     while (row < HEIGHT)
     {

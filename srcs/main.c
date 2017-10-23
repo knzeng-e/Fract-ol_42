@@ -10,6 +10,8 @@
 
 #include "fractol.h"
 
+/*MaxIm = MinIm+(MaxRe-MinRe)*ImageHeight/ImageWidth;*/
+
 void	ft_init(t_infos *infos)
 {
     infos->max_iter = 225;
@@ -17,10 +19,11 @@ void	ft_init(t_infos *infos)
     infos->y = 0.0;
     infos->max_re = 2;
     infos->min_re = -2;
-    infos->max_im = 2;
     infos->min_im = -2;
+    infos->max_im = 2;
     infos->zoom_scale = 125;
     infos->zoom = 1;
+    infos->is_lock = 0;
     infos->x_zoom = WIDTH / (infos->max_re - infos->min_re);
     infos->y_zoom = HEIGHT / (infos->max_im - infos->min_im);
     infos->x_offset = 0;
@@ -34,7 +37,7 @@ void	ft_init(t_infos *infos)
 
 int     check_args(char *av)
 {
-    if ((ft_strcmp(av, "Mandelbrot") != 0) && (ft_strcmp(av, "Julia") != 0))
+    if ((ft_strcmp(av, "mandelbrot") != 0) && (ft_strcmp(av, "julia") != 0) && (ft_strcmp(av, "burningship") != 0))
         return (ERREUR_ARGS);
     return (ARGS_OK);
 }
