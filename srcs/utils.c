@@ -14,7 +14,7 @@ int		pointerMotion(int x, int y, t_infos *infos)
     return (0);
 }
 
-void    draw_fractal(t_infos *infos)
+/*void    draw_fractal(t_infos *infos)
 {
     t_fractal   fractal_tab[3];
     int         index;
@@ -32,7 +32,7 @@ void    draw_fractal(t_infos *infos)
     while ((index < NB_FRACTALS) && ft_strcmp(infos->fractal_name, fractal_tab[index].name) != 0)
         index++;
     fractal_tab[index].fractal_fun(infos);
-}
+}*/
 
 void    ft_init_tab(t_fun t[])
 {

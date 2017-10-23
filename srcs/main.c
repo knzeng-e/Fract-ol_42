@@ -32,6 +32,15 @@ void	ft_init(t_infos *infos)
             &(infos->size_line), &(infos->endian));
 }
 
+int		get_fract(char *av)
+{
+    if (ft_strcmp(av, "mandelbrot") == 0)
+		return (MANDEL_KEY);
+	if (ft_strcmp(av, "julia") == 0)
+		return (JULIA_KEY);
+		return(BURNING_KEY);
+}
+
 int     check_args(char *av)
 {
     if ((ft_strcmp(av, "mandelbrot") != 0) && (ft_strcmp(av, "julia") != 0) && (ft_strcmp(av, "burningship") != 0))
@@ -59,6 +68,7 @@ int		main(int ac, char ** av)
             return (ERROR_MALLOC);
         infos->fractal_name = av[1];
         ft_init(infos);
+		infos->current_fract = get_fract(av[1]);
         mlx_draw(infos);
         free(infos);
     }

@@ -18,7 +18,7 @@ int		expose_hook(t_infos *infos)
 
     ft_bzero(infos->img_data, HEIGHT * infos->size_line);
     mlx_clear_window(infos->mlx, infos->win);
-    draw_fractal(infos);
+    run_functions(infos, infos->current_fract);
     mlx_put_image_to_window(infos->mlx, infos->win, infos->ptr_img, 0, 0);
     mlx_string_put(infos->mlx, infos->win, 4, 2, 0x00FFFF00, ft_strjoin(display, ft_itoa((infos->zoom_scale))));
     return (0);
@@ -37,6 +37,7 @@ int     mouse_hook(int button, int x, int y, t_infos *infos)
 
 int     key_hook(int keycode, t_infos *infos)
 {
+	printf("\n\nKey_pressed ==> %d", keycode);
     run_functions(infos, keycode);
     return (keycode);
 }

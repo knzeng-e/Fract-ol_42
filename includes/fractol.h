@@ -33,9 +33,9 @@
 # define MOVE_RIGHT 124
 # define MOVE_UP 126
 # define MOVE_DOWN 125
-# define BURNING_KEY 49
+# define BURNING_KEY 11
 # define JULIA_KEY 46
-# define MANDEL_KEY 11
+# define MANDEL_KEY 41
 # define SPACE_KEY 49
 # define ESC 53
 # define MOTION_NOTIFY 6
@@ -60,6 +60,7 @@ typedef struct	s_complex
 typedef struct	s_infos
 {
 	char		*fractal_name;
+	int			current_fract;
 	int			max_iter;
 	int			*ptr_img;
 	int			*img_data;
