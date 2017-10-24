@@ -75,4 +75,5 @@ void    run_functions(t_infos *infos, int current_key)
         index++;
     if (index < NB_FUNC)
         tab_functions[index].fun(infos);
+    printf("\nKey_pressed ==> %d", current_key);
 }

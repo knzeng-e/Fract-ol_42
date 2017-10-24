@@ -14,8 +14,8 @@
 
 # define FRACTOL_H
 
-# define WIDTH 500
-# define HEIGHT 500
+# define WIDTH 1000
+# define HEIGHT 600
 # define MAX_ITER 255
 # define MAX_Re 2.0
 # define MIN_Re -2.0
@@ -35,7 +35,7 @@
 # define MOVE_DOWN 125
 # define BURNING_KEY 11
 # define JULIA_KEY 38
-# define MANDEL_KEY 41
+# define MANDEL_KEY 46
 # define SPACE_KEY 49
 # define ESC 53
 # define MOTION_NOTIFY 6

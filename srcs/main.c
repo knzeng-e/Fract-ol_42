@@ -30,6 +30,7 @@ void	ft_init(t_infos *infos)
     infos->ptr_img = mlx_new_image(infos->mlx, WIDTH, HEIGHT);
     infos->img_data = (int *)mlx_get_data_addr(infos->ptr_img, &(infos->bpp), \
             &(infos->size_line), &(infos->endian));
+    zoom_in(WIDTH / 2, HEIGHT / 2, infos);
 }
 
 int		get_fract(char *av)
