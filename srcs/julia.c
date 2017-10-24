@@ -19,6 +19,7 @@ void    julia_fun(t_infos *infos)
     double  y;
     double  x_new;
 
+	infos->current_fract = JULIA_KEY;
     infos->x_zoom = WIDTH / (infos->max_re - infos->min_re);
     infos->y_zoom = HEIGHT / (infos->max_im - infos->min_im);
     if (!infos->is_lock)

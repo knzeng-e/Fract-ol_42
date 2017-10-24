@@ -24,6 +24,7 @@ void    mandel_fun(t_infos *infos)
     double image_x = WIDTH;
     double image_y = HEIGHT;
 
+	infos->current_fract = MANDEL_KEY;
     infos->x_zoom = image_x / (infos->max_re - infos->min_re);
     infos->y_zoom = image_y / (infos->max_im - infos->min_im);
     row = 0;
