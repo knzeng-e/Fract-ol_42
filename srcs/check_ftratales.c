@@ -47,7 +47,7 @@ void    mandel_fun(t_infos *infos)
             }
             if (iteration < infos->max_iter)
             {
-                infos->img_data[row * WIDTH + col] = mlx_get_color_value(infos->mlx, 0x000004FF << (iteration ^ 255));
+                infos->img_data[row * WIDTH + col] = mlx_get_color_value(infos->mlx, 0x000004FF << (iteration & 255));
             }
             col++;
         }

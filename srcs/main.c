@@ -14,7 +14,7 @@
 
 void	ft_init(t_infos *infos)
 {
-    infos->max_iter = 225;
+    infos->max_iter = 42;
     infos->max_re = 2;
     infos->min_re = -2;
     infos->min_im = -2;

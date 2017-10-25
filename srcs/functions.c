@@ -50,7 +50,7 @@ void    lock_julia(t_infos *infos)
 void    ft_zoom_in(t_infos *infos)
 {
     if ((int)infos->zoom_scale % 10 == 0)
-        infos->max_iter += 10;
+        infos->max_iter += 5;
     zoom_in(infos->x, infos->y, infos);
 }
 

@@ -14,8 +14,8 @@
 
 # define FRACTOL_H
 
-# define WIDTH 1000
-# define HEIGHT 600
+# define WIDTH 1200
+# define HEIGHT 800
 # define MAX_ITER 255
 # define MAX_Re 2.0
 # define MIN_Re -2.0
@@ -62,20 +62,24 @@ typedef struct	s_infos
 	char		*fractal_name;
 	int			current_fract;
 	int			max_iter;
+    int         iter;;
 	int			*ptr_img;
 	int			*img_data;
 	int			bpp;
 	int			size_line;
 	int			endian;
-    int         x;
-    int         y;
     int         x_offset;
     int         y_offset;
 	int			mouse_x;
 	int			mouse_y;
+    int         row;
+    int         col;
     int         is_lock;
+    double      x;
+    double      y;
     double      x_zoom;
     double      y_zoom;
+    double      x_tmp;
     double      zoom_scale;
 	double		max_re;
 	double		min_re;
@@ -137,5 +141,3 @@ void	mlx_draw(t_infos *infos);
 double   map(int x, double in_min, double in_max, double out_min, double out_max);
 
 #endif
-
-
