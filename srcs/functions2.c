@@ -1,43 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   functions.c                                        :+:      :+:    :+:   */
+/*   functions2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: knzeng-e <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/26 18:04:00 by knzeng-e          #+#    #+#             */
-/*   Updated: 2017/10/26 18:47:24 by knzeng-e         ###   ########.fr       */
+/*   Created: 2017/10/26 18:45:39 by knzeng-e          #+#    #+#             */
+/*   Updated: 2017/10/26 18:46:31 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	move_left(t_infos *infos)
-{
-	infos->x_offset -= 12;
-	expose_hook(infos);
-}
-
-void	move_right(t_infos *infos)
+void	mouse_right(t_infos *infos)
 {
 	infos->x_offset += 12;
 	expose_hook(infos);
 }
 
-void	move_up(t_infos *infos)
+void	quit(t_infos *infos)
 {
-	infos->y_offset -= 12;
-	expose_hook(infos);
+	mlx_destroy_image(infos->mlx, infos->ptr_img);
+	free(infos);
+	exit(0);
 }
 
-void	move_down(t_infos *infos)
+void	lock_julia(t_infos *infos)
 {
-	infos->y_offset += 12;
-	expose_hook(infos);
+	infos->is_lock = !infos->is_lock;
 }
 
-void	mouse_left(t_infos *infos)
+void	ft_zoom_in(t_infos *infos)
 {
-	infos->x_offset -= 12;
-	expose_hook(infos);
+	if ((int)infos->zoom_scale % 10 == 0)
+		infos->max_iter += 5;
+	zoom_in(infos->x, infos->y, infos);
+}
+
+void	ft_zoom_out(t_infos *infos)
+{
+	zoom_out(infos->x, infos->y, infos);
 }
