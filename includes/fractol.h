@@ -6,7 +6,7 @@
 /*   By: knzeng-e <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 23:33:40 by knzeng-e          #+#    #+#             */
-/*   Updated: 2017/10/27 00:15:42 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2017/10/27 13:12:24 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # include <libft.h>
 # include <stdlib.h>
 # include <math.h>
-# include "mlx.h"
+# include <mlx.h>
 
 typedef struct	s_complex
 {

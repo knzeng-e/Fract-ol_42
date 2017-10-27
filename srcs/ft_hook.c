@@ -6,7 +6,7 @@
 /*   By: knzeng-e <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 18:22:39 by knzeng-e          #+#    #+#             */
-/*   Updated: 2017/10/26 22:44:12 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2017/10/27 14:24:32 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int		expose_hook(t_infos *infos)
 	mlx_clear_window(infos->mlx, infos->win);
 	run_functions(infos, infos->current_fract);
 	mlx_put_image_to_window(infos->mlx, infos->win, infos->ptr_img, 0, 0);
-	mlx_string_put(infos->mlx, infos->win, 4, 2, 0x00FFFF00, \
-			ft_strjoin("ZOOM : ", ft_itoa((infos->zoom_scale))));
 	return (0);
 }
 
