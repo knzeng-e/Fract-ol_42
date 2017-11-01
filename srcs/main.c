@@ -6,7 +6,7 @@
 /*   By: knzeng-e <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/26 23:18:02 by knzeng-e          #+#    #+#             */
-/*   Updated: 2017/10/27 13:02:39 by knzeng-e         ###   ########.fr       */
+/*   Updated: 2017/10/27 14:38:40 by knzeng-e         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		check_args(char *av)
 
 void	print_usage(void)
 {
-	ft_putendl("Usage: ./fractol fractol_name");
+	ft_putendl("Usage: ./fractol mandelbrot | julia | burningship");
 }
 
 int		main(int ac, char **av)
@@ -64,6 +64,7 @@ int		main(int ac, char **av)
 		if (check_args(av[1]) == ERREUR_ARGS)
 		{
 			ft_putendl("Fractale inexistante ou non definie..");
+			print_usage();
 			return (ERREUR_ARGS);
 		}
 		if ((infos = (t_infos *)malloc(sizeof(t_infos))) == NULL)
